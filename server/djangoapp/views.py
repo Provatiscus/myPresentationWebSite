@@ -23,6 +23,14 @@ def about(request):
     context = {}
     return render(request, 'djangoapp/about.html', context)
 
+def contact(request):
+    context = {}
+    return render(request, 'djangoapp/contact.html', context)
+
+def test(request):
+    context = {}
+    return render(request, 'djangoapp/test.html', context)
+
 # Create an `about` view to render a static about page
 # def about(request):
 # ...
