@@ -23,37 +23,45 @@
         
     </div>
 </section>
-<div class="container" >
-    <div class=row>
-    <div class=col-3>
 
-    </div>
-    <div class=col-9 style="background-color: blanchedalmond; padding:3%; border-radius: 2em;">    
-        <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class=form-group>
-            <div class="row">
-                <div class="col-6">                
-                    {{ field.label_tag }}<br>
-                    {{ field }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 "></div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Sign-Up.
                 </div>
-                {% if field.help_text %}
-                <div class="col-6">  
-                    <br> 
-                    <small style="color: grey">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                    <p style="color: red">{{ error }}</p>
-                    {% endfor %}
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.label }}"></label>
+                            <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder={{ field.label }} required>
+                            <br>
+                            
+                            {% if field.help_text %}              
+                                <small style="color: grey"> {{ field.help_text }}</small>
+                            {% endif %}
+                              
+                            {% for error in field.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                         {% endfor %}   
+                        <div class="mx-auto">
+                        
+                        <br>
+                        <button type="submit" class="btn btn-primary text-right">Submit</button></div>
+                        
+                    </form>
                 </div>
             </div>
-            </div>
-            {% endfor %}
-            <button type="submit">Sign up</button>
-        </form>  
-    </div>
+        </div>
+        
     </div>
 </div>
+
+
 
 {% endblock %}
