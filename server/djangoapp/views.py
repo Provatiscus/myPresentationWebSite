@@ -80,20 +80,32 @@ def registration_request(request):
     elif request.method == 'POST':
         # Check if user exists
         print("AAAAAAAAA")
+        print("request", request)
         username = request.POST['Username']
         password = request.POST['Password']
+        
+        for field in request.POST:
+            print("FIELD", field)
+        password2 = request.POST['Password confirmation']
+        print("password2", password2)
         user_exist = False
         try:
             User.objects.get(username=username)
             user_exist = True
         except:
             logger.error("New user")
-        if not user_exist:
+        if not user_exist and password2 == password:
             print(44444444)
             user = User.objects.create_user(username=username,
                                             password=password)
             login(request, user)
             return redirect("djangoapp:index")
+        elif not user_exist:
+            context['message'] = "Passwords didn't match."
+            form = UserCreationForm()
+            context['form']=form
+            return render(request, 'djangoapp/signup.html', context)
+
         else:
             print(555555555)
             context['message'] = "User already exists."
