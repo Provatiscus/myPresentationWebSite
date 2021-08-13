@@ -99,7 +99,8 @@ def registration_request(request):
             user = User.objects.create_user(username=username,
                                             password=password)
             login(request, user)
-            return redirect("djangoapp:index")
+            context['message']="User created successfully"
+            return render(request, 'djangoapp/index.html', context)
         elif not user_exist:
             context['message'] = "Passwords didn't match."
             form = UserCreationForm()

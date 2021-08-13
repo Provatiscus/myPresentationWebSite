@@ -45,7 +45,7 @@
                         {% csrf_token %}
                         {% for field in form %}
                         <div class="form-group">
-                            {% if field.label == Username %}
+                            {% if field.label == "Username" %}
                             <label for="{{ field.label }}"></label>
                             <input type="{{ field.label }}" class="form-control" id="name" aria-describedby="emailHelp" placeholder="{{ field.label }}" name="{{ field.label }}" required>
                             <br>
