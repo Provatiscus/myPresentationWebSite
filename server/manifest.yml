@@ -6,6 +6,6 @@
     buildpack: python_buildpack
   - name: djangoapp-nginx
     routes:
-      - route: pezeuy.eu-gb.mybluemix.net/static
+      - route: capstone-pezeuy.eu-gb.mybluemix.net/static
     memory: 128M
     buildpack: staticfile_buildpack
