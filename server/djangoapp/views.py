@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # from .models import related models
 # from .restapis import related methods
@@ -52,8 +52,10 @@ def login_request(request):
             
         else:
             print(2222222)
+            form = AuthenticationForm()
+            context['form']=form
             context['message'] = "Invalid username or password."
-            return redirect('djangoapp:registration_request')
+            return render(request, 'djangoapp/login.html', context)
     else:
         print(33333333)
         return render(request, 'djangoapp/index.html', context)
