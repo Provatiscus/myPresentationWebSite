@@ -29,7 +29,7 @@ APPEND_SLASH = True
 
 ALLOWED_HOSTS = [
     "localhost",
-    "pezeuy.eu-gb.mybluemix.net",
+    "capstone-pezeuy.eu-gb.mybluemix.net",
     ]
 
 
