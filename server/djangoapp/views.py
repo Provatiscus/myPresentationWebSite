@@ -48,7 +48,8 @@ def login_request(request):
         if user is not None:
             print(111111111)
             login(request, user)
-            return redirect('djangoapp:index')
+            context["message"] = "Successfully logged in"
+            return render(request, 'djangoapp/index.html', context)
             
         else:
             print(2222222)
@@ -64,7 +65,9 @@ def login_request(request):
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
     logout(request)
-    return redirect('djangoapp:index')
+    context = {}
+    context["message"] = "Successfully logged out"
+    return render(request, 'djangoapp/index.html', context)
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):

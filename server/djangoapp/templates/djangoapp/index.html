@@ -1,12 +1,12 @@
 {% extends "djangoapp/base.html" %}}
-
+{% load static %}
 {% block content %}
 <section class="jumbotron text-center">
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
                 <img class="fit-picture"
-                     src="../../static/Car.png"
+                     src="{%  static  'Car.png'  %}"
                      alt="Car">
             </div>
 
@@ -16,7 +16,7 @@
 
             <div class="col-3">
                 <img class="fit-picture"
-                     src="../../static/Car-symetric.png"
+                     src="{%  static  'Car-symetric.png'  %}"
                      alt="Car">
             </div>
         </div>
