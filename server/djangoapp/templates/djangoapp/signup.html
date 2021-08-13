@@ -32,12 +32,12 @@
                 <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Sign-Up.
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" action="signup.html">
                         {% csrf_token %}
                         {% for field in form %}
                         <div class="form-group">
                             <label for="{{ field.label }}"></label>
-                            <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder={{ field.label }} required>
+                            <input type="{{ field.label }}" class="form-control" id="name" aria-describedby="emailHelp" placeholder="{{ field.label }}" name="{{ field.label }}" required>
                             <br>
                             
                             {% if field.help_text %}              

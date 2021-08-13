@@ -42,8 +42,8 @@ def login_request(request):
     for key in request: 
         print(key)
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['psw']
+        username = request.POST['Username']
+        password = request.POST['Password']
         user = authenticate(username=username, password=password)
         if user is not None:
             print(111111111)
@@ -62,11 +62,13 @@ def login_request(request):
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
     logout(request)
-    return redirect('onlinecourse:index')
+    return redirect('djangoapp:index')
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
     print("request", request)
+    for key in request:
+        print("key", key)
     context = {}
     if request.method == 'GET':
         print("BBBBBBBB")
@@ -76,10 +78,8 @@ def registration_request(request):
     elif request.method == 'POST':
         # Check if user exists
         print("AAAAAAAAA")
-        username = request.POST['username']
-        password = request.POST['psw']
-        first_name = request.POST['firstname']
-        last_name = request.POST['lastname']
+        username = request.POST['Username']
+        password = request.POST['Password']
         user_exist = False
         try:
             User.objects.get(username=username)
@@ -88,14 +88,16 @@ def registration_request(request):
             logger.error("New user")
         if not user_exist:
             print(44444444)
-            user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
+            user = User.objects.create_user(username=username,
                                             password=password)
             login(request, user)
-            return redirect("onlinecourse:index")
+            return redirect("djangoapp:index")
         else:
             print(555555555)
             context['message'] = "User already exists."
-            return render(request, 'onlinecourse/user_registration_bootstrap.html', context)
+            form = UserCreationForm()
+            context['form']=form
+            return render(request, 'djangoapp/signup.html', context)
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
