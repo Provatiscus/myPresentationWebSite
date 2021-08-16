@@ -28,6 +28,8 @@ urlpatterns = [
     path(route='logout.html', view=views.logout_request, name='login_request'),
     path(route='signup.html', view=views.registration_request, name='registration_request'),
     path(route='', view=views.get_dealerships, name='index'),
+    path(route='by_id', view=views.get_dealerships_by_id, name='index'),
+    path(route='by_state', view=views.get_dealerships_by_state, name='index'),
 
     # path for dealer reviews view
 
