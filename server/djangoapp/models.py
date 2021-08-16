@@ -4,6 +4,9 @@ from django.utils.timezone import now
 
 # Create your models here.
 
+
+
+
 # <HINT> Create a Car Make model `class CarMake(models.Model)`:
 # - Name
 # - Description
@@ -12,10 +15,11 @@ from django.utils.timezone import now
 class CarMake(models.Model):
     Name = models.CharField(max_length = 100)
     Description = models.CharField(max_length = 500)
+
    
 
     def __str__(self):
-        return f"CarMake name: {self.Name}, Description: {self.Description}"
+        return f"{self.Name}"
 
 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
@@ -28,16 +32,18 @@ class CarMake(models.Model):
 # - __str__ method to print a car make object
 
 class CarModel(models.Model):
-    CarMake = models.ManyToManyField(CarMake, verbose_name="list of CarMakes")
+    CarMake = models.ForeignKey(CarMake, on_delete=models.CASCADE)
     DealerId = models.IntegerField()
     Name = models.CharField(max_length = 100)
     Type = models.TextField(choices = [("Sedan", "Sedan"), ("SUV", "SUV"), ("WAGON", "WAGON")])
     Year = models.DateField()
     
     def __str__(self):
-        return f"This CarModel has CarMake = {self.CarMake}, DealerId = {self.DealerId}, Name = {self.Name}, Type = {self.Type}, Year = {self.Year}"
+        return f"{self.Name}"
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 
 
 # <HINT> Create a plain Python class `DealerReview` to hold review data
+
+
