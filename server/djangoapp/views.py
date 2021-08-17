@@ -35,6 +35,10 @@ def test(request):
     context = {}
     return render(request, 'djangoapp/test.html', context)
 
+def dealerships(request):
+    context = {}
+    return render(request, 'djangoapp/dealerships.html', context)
+
 # Create a `login_request` view to handle sign in request
 def login_request(request):
     context = {}

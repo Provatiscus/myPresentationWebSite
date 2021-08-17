@@ -29,7 +29,8 @@ urlpatterns = [
     path(route='signup.html', view=views.registration_request, name='registration_request'),
     path(route='', view=views.get_dealerships, name='index'),
     path(route='by_id', view=views.get_dealerships_by_id, name='index'),
-    path(route='by_state', view=views.get_dealerships_by_state, name='index'),
+    path(route='by_state', view=views.get_dealerships_by_state, name='get_dealerships_by_state'),
+    path(route='dealerships.html', view=views.dealerships, name='dealerships'),
 
     # path for dealer reviews view
 
