@@ -19,7 +19,6 @@ urlpatterns = [
 
     # path for logout
 
-    path(route='', view=views.get_dealerships, name='index'),
     path(route='index.html', view=views.index, name='index'),
     path(route='about.html', view=views.about, name='about'),
     path(route='contact.html', view=views.contact, name='contact'),
@@ -31,6 +30,8 @@ urlpatterns = [
     path(route='by_id', view=views.get_dealerships_by_id, name='index'),
     path(route='by_state', view=views.get_dealerships_by_state, name='get_dealerships_by_state'),
     path(route='dealerships.html', view=views.dealerships, name='dealerships'),
+    path(route='dealerships_by_id.html', view=views.get_dealerships_by_id_from_mongoDB, name='dealerships_by_id_from_mongo'),
+    path(route='dealerships_by_state.html', view=views.get_dealerships_by_state_from_mongoDB, name='dealerships_by_state_from_mongo'),
 
     # path for dealer reviews view
 

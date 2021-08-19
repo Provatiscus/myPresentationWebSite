@@ -1,9 +1,11 @@
+from bson import json_util
+from pymongo import MongoClient
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .restapis import get_dealers_from_cf, get_dealers_by_id, get_dealers_by_state
+from .restapis import get_dealers_from_cf, get_dealers_by_id, get_dealers_by_state, post_review
 # from .models import related models
 # from .restapis import related methods
 from django.contrib.auth import login, logout, authenticate
@@ -11,6 +13,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -132,26 +135,71 @@ def get_dealerships(request):
         # Return a list of dealer short name
         return HttpResponse(dealer_names)
 
+def get_dealerships_from_mongoDB(request):
+    if request.method == "GET":
+        client = MongoClient("mongodb+srv://Peutiblond:Arfarfarf0@cluster0.ucdyo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        db = client["dealership_db"]
+        dealerships = db["dealerships"]
+        result = {}
+        for dealership in dealerships.find({}):
+            result[dealership['id']] = dealership 
+        json_result = json.dumps(result,sort_keys=True, indent=4, default=json_util.default)
+        print(f"returned {len(result)} dealers")
+        print(result)
+        
+        return HttpResponse(json_result)
+
 def get_dealerships_by_id(request):
     if request.method == "GET":
-        url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/dealership/byId"
+        dealerId = int(request.GET["dealerId"])
+        url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/dealership"
         # Get dealers from the URL
-        dealerships = get_dealers_by_id(url, dealerId="3")
+        dealerships = get_dealers_by_id(url, dealerId=dealerId)
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
         return HttpResponse(dealer_names)
+
+def get_dealerships_by_id_from_mongoDB(request):
+    if request.method == "GET":
+        dealerId = int(request.GET["dealerId"])
+        client = MongoClient("mongodb+srv://Peutiblond:Arfarfarf0@cluster0.ucdyo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        db = client["dealership_db"]
+        dealerships = db["dealerships"]
+        result = {}
+        for dealership in dealerships.find({"NID": dealerId}):
+            result[dealership['NID']] = dealership
+        json_result = json.dumps(result,sort_keys=True, indent=4, default=json_util.default)
+        print(f"returned {len(result)} dealers")
+        print(result)
+
+        return HttpResponse(json_result)
 
 def get_dealerships_by_state(request):
     if request.method == "GET":
+        state = request.GET["state"]
         url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/dealership/byId"
         # Get dealers from the URL
-        dealerships = get_dealers_by_state(url, state="Texas")
+        dealerships = get_dealers_by_state(url, state=state)
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
         return HttpResponse(dealer_names)
 
+def get_dealerships_by_state_from_mongoDB(request):
+    if request.method == "GET":
+        state = request.GET["state"]
+        client = MongoClient("mongodb+srv://Peutiblond:Arfarfarf0@cluster0.ucdyo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        db = client["dealership_db"]
+        dealerships = db["dealerships"]
+        result = {}
+        for dealership in dealerships.find({"state": state}):
+            result[dealership['NID']] = dealership
+        json_result = json.dumps(result,sort_keys=True, indent=4, default=json_util.default)
+        print(f"returned {len(result)} dealers")
+        print(result)
+
+        return HttpResponse(json_result)
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
 # ...
@@ -159,4 +207,12 @@ def get_dealerships_by_state(request):
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...
+
+
+
+# def add_review(request):
+#     if request.method == "POST":
+#         doc = request.POST
+#         post_review(doc)
+#         return doc
 
