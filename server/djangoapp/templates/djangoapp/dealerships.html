@@ -24,9 +24,98 @@
     </div>
 </section>
 
-<div class="container">
-    <h1 style="text-align: center;">Welcome to Best Cars dealership, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.</h1>
+
+
+<div class = "container">
+    <div class = "row">
+    {% for dealership in dealerships %}
+
+        <div class = "col-4">
+
+        <div class="card" style="width: 18rem; margin:2em; background:#D4D4D4">
+<!--          <img class="card-img-top" src="{%  static  'Car-symetric.png'  %}"  alt="Car" style="padding:1em">-->
+          <div class="card-body" style="margin:2em">
+            <h5 class="card-title">{{ dealership.full_name }}</h5>
+              <ul>
+                <li class="card-text">
+                     State: {{ dealership.st }}
+                </li>
+                <li class="card-text">
+                     City: {{ dealership.city }}
+                </li>
+                <li class="card-text">
+                    ID: {{ dealership.id }}
+                </li>
+                <li class="card-text">
+                    Zip: {{ dealership.zip }}
+                </li>
+                </ul>
+
+            <a href="dealer_details.html?dealerId={{dealership.id}}" class="btn btn-primary" style="background:black"> View details </a>
+          </div>
+        </div>
+        </div>
+
+    {% endfor %}
+    </div>
 </div>
+
+
+<br>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-2 "></div>
+        <div class="col-md-8">
+            <h2 style="text-align: center;">{{message}}</h2>
+        </div>
+        <br>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-2 "></div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Select Dealerships.
+                </div>
+                <div class="card-body">
+                    <form method="post" action="dealerships.html">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="dealerId"> Id </label>
+                            <input type="text" class="form-control" id="dealerId" aria-describedby="Id Filter" placeholder="Id" name="dealerId">
+                            <br>
+                            <label for="state"> State </label>
+                            <input type="text" class="form-control" id="state" aria-describedby="State Filter" placeholder="Id" name="state">
+                            <br>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary text-right">Get Dealerships</button></div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<br>
+
+<script>
+    post_request = function(dealerId){
+        console.log("test")
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "dealer_details.html", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            dealerId: value
+        }));
+    }
+</script>
        
 
 {% endblock %}
+
+

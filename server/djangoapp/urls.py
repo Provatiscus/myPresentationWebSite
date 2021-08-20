@@ -32,6 +32,8 @@ urlpatterns = [
     path(route='dealerships.html', view=views.dealerships, name='dealerships'),
     path(route='dealerships_by_id.html', view=views.get_dealerships_by_id_from_mongoDB, name='dealerships_by_id_from_mongo'),
     path(route='dealerships_by_state.html', view=views.get_dealerships_by_state_from_mongoDB, name='dealerships_by_state_from_mongo'),
+    path(route='dealer_details.html', view=views.get_dealer_details, name='reviews_by_id'),
+    path(route='post_review', view=views.add_review, name='post_review'),
 
     # path for dealer reviews view
 

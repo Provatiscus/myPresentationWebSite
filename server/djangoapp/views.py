@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .restapis import get_dealers_from_cf, get_dealers_by_id, get_dealers_by_state, post_review
+from .restapis import get_dealers_from_cf, get_dealers_by_id, get_dealers_by_state, post_review, get_reviews_from_cf,get_dealer_name_from_id
 # from .models import related models
 # from .restapis import related methods
 from django.contrib.auth import login, logout, authenticate
@@ -13,6 +13,8 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+import copy
+import random
 
 
 # Get an instance of a logger
@@ -40,6 +42,22 @@ def test(request):
 
 def dealerships(request):
     context = {}
+    if request.method == "POST":
+        if request.POST['dealerId']:
+            dealerId = request.POST['dealerId']
+            url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/dealership"
+            # Get dealers from the URL
+            dealerships = get_dealers_by_id(url, dealerId=dealerId)
+            print(dealerships)
+            context["dealerships"]=dealerships
+        else:
+            state = request.POST['state']
+            url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/dealership"
+            # Get dealers from the URL
+            dealerships = get_dealers_by_state(url, state=state)
+            print(dealerships)
+            context["dealerships"]=dealerships
+
     return render(request, 'djangoapp/dealerships.html', context)
 
 # Create a `login_request` view to handle sign in request
@@ -202,7 +220,34 @@ def get_dealerships_by_state_from_mongoDB(request):
         return HttpResponse(json_result)
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
-# ...
+def get_dealer_details(request, **kwargs):
+    context = {}
+    if request.method == "POST":
+        print(request)
+        for key in request:
+            print(key)
+        if request.POST["dealerId"]:
+            dealerId = request.POST["dealerId"]
+            url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/review/"
+            # Get dealers from the URL
+            reviews = get_reviews_from_cf(url, dealerId=dealerId, **kwargs)
+            for review in reviews:
+                print(review)
+            context["reviews"] = reviews
+            context["dealerId"] = dealerId
+
+    elif request.method == "GET":
+        if "dealerId" in request.GET:
+            dealerId = request.GET["dealerId"]
+            url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/review/"
+            # Get dealers from the URL
+            reviews = get_reviews_from_cf(url, dealerId=dealerId, **kwargs)
+            for review in reviews:
+                print(review)
+            context["reviews"] = reviews
+            context["dealerId"] = dealerId
+
+    return render(request, 'djangoapp/dealer_details.html', context)
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
@@ -210,9 +255,18 @@ def get_dealerships_by_state_from_mongoDB(request):
 
 
 
-# def add_review(request):
-#     if request.method == "POST":
-#         doc = request.POST
-#         post_review(doc)
-#         return doc
+def add_review(request):
+    context={}
+    if request.method == "POST":
+        doc = copy.deepcopy(request.POST)
+        url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/dealership/"
+        dealerId = doc["dealerId"]
+        doc["dealership"] = dealerId
+        doc["id"]=int(random.random()*10000000)
+        # doc["purchase_date"]=doc["date"]
+        print(doc)
+        post_review(doc)
+        context["dealerId"] = dealerId
+    return render(request, 'djangoapp/dealer_details.html', context)
+
 
