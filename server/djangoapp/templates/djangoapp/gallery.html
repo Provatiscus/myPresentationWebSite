@@ -2,82 +2,136 @@
 {% load static %}
 {% block content %}
 
-<section class="jumbotron text-center">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3">
-                <img class="fit-picture"
-                     src="{%  static  'Car.png'  %}"
-                     alt="Car">
-            </div>
 
-            <div class="col-6">
-                <h1 class="jumbotron-heading">E-COMMERCE CONTACT</h1>
-            </div>
-
-            <div class="col-3">
-                <img class="fit-picture"
-                     src="{%  static  'Car-symetric.png'  %}"
-                     alt="Car">
-            </div>
-        </div>
-        
-    </div>
-</section>
 <div class="container">
+
     <div class="row">
         <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
-                </ol>
-            </nav>
+            <h2 style="text-align:center">Style Transfer</h2>
+            <br>
+            <p>Style Transfer is the process of extracting the style of a picture to apply it on another picture.
+                <br> To do that, we use a Deep Neural Network trained for classification of images. This Network picks up some patterns
+            in the image in order to classify the images. We can recapture these kind of patterns in the deep layers of the Network and
+            we can average them by taking the gram matrix of these layers. This gives us something representing the "style" of the image. Once we have extracted these features we can take the same Network
+            and freeze all its layers but the first one and apply gradient descent in order for it to modify the original image to make the features closer
+            to those extracted previously. </p>
+            <br>
+
+            <p>The code I wrote for Style Transfer is available on my <a href="GitHub">Github</a></p>
+
+        </div>
+
+    </div>
+    <br><br>
+<!--    1-->
+    <div class="row">
+        <div class="col-md-4" style="margin-bottom:1em">
+            <h4 style="text-align:center">Content Picture</h4>
+            <br>
+            <img src="{%  static  'gallery/content/paysage_maman2.jpg'  %}" alt="" width = 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <h4 style="text-align:center">Style Picture</h4>
+            <br>
+            <img src="{%  static  'gallery/style/Monet1.jpg'  %}" alt="" width = 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <h4 style="text-align:center">Result Picture</h4>
+            <br>
+            <img src="{%  static  'gallery/Monet1_paysage2.jpeg'  %}" alt="" width = 100%>
         </div>
     </div>
-</div>
-<div class="container">
+    <hr>
+
+<!--    2-->
+      <div class="row d-flex flex-wrap align-items-center">
+
+        <div class="col-md-4" style="margin-bottom:1em;">
+            <br>
+            <img src="{%  static  'gallery/content/bridge.jpg'  %}" alt="" class = center width="100%">
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em;">
+            <br>
+            <img src="{%  static  'gallery/style/scream_resized.jpg'  %}" class = center alt="" width= 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em;">
+            <img src="{%  static  'gallery/screambridge2.gif'  %}" alt="" width = 100%>
+        </div>
+
+    </div>
+    <br>
+    <hr>
+    <br>
+
+<!--    3-->
+      <div class="row d-flex flex-wrap align-items-center">
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/content/orangutan.jpg'  %}" alt="" width = 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/style/Monet1.jpg'  %}" alt="" width= 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/Monet1_orangutan.jpg'  %}" alt="" width = 100%>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+
+    <!--   4-->
+      <div class="row d-flex flex-wrap align-items-center">
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/content/moi.jpg'  %}" alt="" width = 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/style/Van_Gogh2.jpg'  %}" alt="" width= 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/moi_Van_Gogh2.jpeg'  %}" alt="" width = 100%>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <br><br>
+<!--    <div class="flex-container">-->
+<!--        <img src="{%  static  'gallery/content/orangutan.jpg'  %}" class="inner-image portrait" />-->
+<!--        <img src="{%  static  'gallery/style/Monet1.jpg'  %}" class="inner-image portrait" />-->
+<!--        <img src="{%  static  'gallery/Monet1_orangutan.jpg'  %}" class="inner-image portrait" />-->
+
+<!--    </div>-->
+
     <div class="row">
         <div class="col">
-            <div class="card">
-                <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Contact me.
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea class="form-control" id="message" rows="6" required></textarea>
-                        </div>
-                        <div class="mx-auto">
-                        <button type="submit" class="btn btn-primary text-right">Submit</button></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-4">
-            <div class="card bg-light mb-3">
-                <div class="card-header bg-success text-white text-uppercase"><i class="fa fa-home"></i> Contact</div>
-                <div class="card-body">
-                    <p>Email : pezeuy@gmail.com</p>
+            <h2 style="text-align:center">Generative Adversarial Network</h2>
+            <br>
+            <p> Generative Adversarial Network is a special type of network composed of a generator of images and a discriminator which are
+                training against each other.<br>
+                The generator is a network producing images and the discriminator is a network evaluating how well the images produced by the generator
+                ressemble the reference images.
+                When the generator produces an image, the discriminator evaluates the image and by backward propagation informs the generator on how its
+                weights should be transformed in order to produce a better image.
+                There are a lot of variations for GANS. This explanation is about the simplest form of gans.
+            </p>
+            <br>
+            <p>The code I wrote for this GAN Production is available on my <a href="GitHub">Github</a></p>
 
-                </div>
-
-            </div>
         </div>
+
     </div>
+    <br><br>
+
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 {% endblock %}
