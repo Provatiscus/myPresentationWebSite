@@ -51,7 +51,7 @@
                 </li>
                 </ul>
 
-            <a href="dealer_details.html?dealerId={{dealership.id}}" class="btn btn-primary" style="background:black"> View details </a>
+            <a href="dealer_details?dealerId={{dealership.id}}" class="btn btn-primary" style="background:black"> View details </a>
           </div>
         </div>
         </div>
@@ -80,7 +80,7 @@
                 <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Select Dealerships.
                 </div>
                 <div class="card-body">
-                    <form method="post" action="dealerships.html">
+                    <form method="post" action="dealerships">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="dealerId"> Id </label>
@@ -107,7 +107,7 @@
     post_request = function(dealerId){
         console.log("test")
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "dealer_details.html", true);
+        xhr.open("POST", "dealer_details", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             dealerId: value

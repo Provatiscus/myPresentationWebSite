@@ -13,6 +13,7 @@ import logging
 import json
 import copy
 import random
+from .models import Certificate
 
 
 # Get an instance of a logger
@@ -20,9 +21,9 @@ logger = logging.getLogger(__name__)
 
 
 # Create your views here.
-def index(request):
-    context = {}
-    return render(request, 'djangoapp/index.html', context)
+def general(request):
+    context = {"title": "Overview"}
+    return render(request, 'djangoapp/general.html', context)
 
 # Create an `about` view to render a static about page
 def about(request):
@@ -31,8 +32,88 @@ def about(request):
 
 # Create a `contact` view to return a static contact page
 def contact(request):
-    context = {}
+    context = {"title":"Contact"}
     return render(request, 'djangoapp/contact.html', context)
+
+def resumee(request):
+    context = {"title": "My Resumee",
+               'image': 'photoCV haute resolution_cropped.png'}
+    return render(request, 'djangoapp/resumee.html', context)
+
+def certificates(request):
+
+    context = {"title": "My Certificates and Diplomas",
+               'image': 'diplomas-hat.jpg',
+               'certifs':[]}
+    if request.method == "GET":
+
+        certifs = Certificate.objects.all()
+        for i, certif in enumerate(certifs):
+            certificate_json = {
+                "title": certif.title,
+                "school": certif.school,
+                "topics": certif.topics,
+                "skills": certif.skills,
+                "link1": certif.link,
+                "link2": certif.link2,
+            }
+            context["certifs"].append(certificate_json)
+        # print(context)
+    elif request.method == "POST":
+        if (len(request.POST)==1 or "all" in request.POST):
+            certifs = Certificate.objects.all()
+            for i, certif in enumerate(certifs):
+                certificate_json = {
+                    "title": certif.title,
+                    "school": certif.school,
+                    "topics": certif.topics,
+                    "skills": certif.skills,
+                    "link1": certif.link,
+                    "link2": certif.link2,
+                }
+                context["certifs"].append(certificate_json)
+                context["skills"] = 1 # To have context["skills"] evaluated to True in order to have  an automatic scroll
+        else:
+            print("POST_REQUEST_TEST", request.POST)
+            skills = []
+            for skill in request.POST:
+                skills.append(skill)
+            print("skills",skills)
+
+            flags = {}
+            context["skills"]=skills[1:]
+            # print(context)
+
+            certifs = 0
+
+            for skill in skills[1:]:
+                print("certifs", certifs)
+                if certifs == 0:
+                    certifs = Certificate.objects.filter(flags__contains = skill)
+                else:
+                    certifs= certifs | (Certificate.objects.filter(flags__contains = skill))
+            for i, certif in enumerate(certifs):
+                certificate_json = {
+                    "title": certif.title,
+                    "school": certif.school,
+                    "topics": certif.topics,
+                    "skills": certif.skills,
+                    "link1": certif.link,
+                    "link2": certif.link2,
+                }
+                context["certifs"].append(certificate_json)
+
+    return render(request, 'djangoapp/certificates.html', context)
+
+def gallery(request):
+    context = {"title": "Gallery"}
+    return render(request, 'djangoapp/gallery.html', context)
+
+def minigame(request):
+    context = {"title": "Mini Game"}
+    return render(request, 'djangoapp/minigame.html', context)
+
+
 
 def test(request):
     context = {}
@@ -72,7 +153,7 @@ def login_request(request):
             print(111111111)
             login(request, user)
             context["message"] = "Successfully logged in"
-            return render(request, 'djangoapp/index.html', context)
+            return render(request, 'djangoapp/general.html', context)
             
         else:
             print(2222222)
@@ -82,7 +163,7 @@ def login_request(request):
             return render(request, 'djangoapp/login.html', context)
     else:
         print(33333333)
-        return render(request, 'djangoapp/index.html', context)
+        return render(request, 'djangoapp/general.html', context)
 
 
 # Create a `logout_request` view to handle sign out request
@@ -90,7 +171,7 @@ def logout_request(request):
     logout(request)
     context = {}
     context["message"] = "Successfully logged out"
-    return render(request, 'djangoapp/index.html', context)
+    return render(request, 'djangoapp/general.html', context)
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
@@ -126,7 +207,7 @@ def registration_request(request):
                                             password=password)
             login(request, user)
             context['message']="User created successfully"
-            return render(request, 'djangoapp/index.html', context)
+            return render(request, 'djangoapp/general.html', context)
         elif not user_exist:
             context['message'] = "Passwords didn't match."
             form = UserCreationForm()

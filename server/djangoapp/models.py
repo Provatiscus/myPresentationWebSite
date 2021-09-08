@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
-
-
+import json
 # Create your models here.
 
 
@@ -18,7 +17,6 @@ class CarMake(models.Model):
 
     def __str__(self):
         return f"{self.Name}"
-
 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
 # - Many-To-One relationship to Car Make model (One Car Make has many Car Models, using ForeignKey field)
@@ -83,3 +81,41 @@ class DealerReview:
 
     def __str__(self):
         return "Dealer name: " + self.name
+
+
+# class Certificate:
+#     def __init__(self, id, title, school, topics, skills, link, link2="" ):
+#         self.id = id,
+#         self.title = title,
+#         self.school = school,
+#         self.topics = topics,
+#         self.skills = skills,
+#         self.link = link,
+#         self.link2 = link2
+#
+#     def __str__(self):
+#         return self.title
+
+class Certificate(models.Model):
+    title = models.CharField(max_length=250)
+    school = models.CharField(max_length=250)
+    topics = models.CharField(max_length=2000)
+    skills = models.CharField(max_length=250)
+    flags = models.CharField(max_length=250, null = True)
+    link = models.CharField(max_length=500)
+    link2 = models.CharField(max_length=500)
+
+    def set_topics(self, x):
+        self.foo = json.dumps(x)
+
+    def get_topics(self):
+        return json.loads(self.foo)
+
+    def set_skills(self, x):
+        self.foo = json.dumps(x)
+
+    def get_skills(self):
+        return json.loads(self.foo)
+
+    def __str__(self):
+        return self.title
