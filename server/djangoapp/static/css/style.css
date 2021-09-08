@@ -1,15 +1,15 @@
 /* Give navbar text the white color */
 
     .nav-link {
-        color: white!important;
+        color: black!important;
     }
 
     .navbar-brand{
-        color: white!important;
+        color: black!important;
     }
 
     .btn-outline-success{
-        color: white;
+        color: black;
     }
 
 /* Stick footer to bottom */
