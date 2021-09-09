@@ -103,7 +103,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+server/djangobackend/.env
 .venv
 env/
 venv/
@@ -139,4 +139,4 @@ server/djangoapp/migrations/
 .DS_Store
 *.pyc
 server/djangoapp/migrations/
-
+server/MongoDB
