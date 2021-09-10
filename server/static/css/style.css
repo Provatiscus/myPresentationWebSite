@@ -48,3 +48,15 @@ hr {
     grid-gap: .5rem;
 }
 
+@media only screen and (max-width: 1285px){
+    .filter-large-screen {
+        display: none;
+    }
+}
+@media only screen and (min-width: 1286px){
+    .filter-small-screen {
+        display: none;
+    }
+}
+
+

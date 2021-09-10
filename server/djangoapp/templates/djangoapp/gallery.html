@@ -125,11 +125,53 @@
                 There are a lot of variations for GANS. This explanation is about the simplest form of gans.
             </p>
             <br>
-            <p>The code I wrote for this GAN Production is available on my <a href="GitHub">Github</a></p>
+
+                    <p>The code I wrote for these GANs Production is available on my <a href="GitHub">Github</a></p>
+
+
+
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 style="text-align:center">GAN Without Convolutional neural network</h3>
+            <br>
+            <img src="{% static 'gallery/Simple_GAN.gif' %}" alt="" width = 100%>
+            <br>
 
         </div>
 
+        <div class="col-lg-6">
+            <h3 style="text-align:center">GAN With Convolutional neural network</h3>
+            <br>
+            <img src="{% static 'gallery/Conv_GAN.gif' %}" alt="" width = 100%>
+            <br>
+
+        </div>
     </div>
+    <div class="row">
+        <div class="col">
+           <h4> These images represent the output of the GANS at different times for every 20 training steps during several thousands of steps</h4>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <p>
+                An Interesting fact that we can point here is how the convolutional neural network can learn perfectly the black background in comparison to the
+                dense neural network.
+                Indeed the convolution can learn spatial representations by isolating some parts of the image. Thus it can learn that some parts have to be dark.
+                In comparison the Dense Neural network sees all its weights interlieved and can't learn some dark part of the background without changing the light
+                part of the foreground.
+            </p>
+        </div>
+    </div>
+
+
+
+    
     <br><br>
 
 </div>
