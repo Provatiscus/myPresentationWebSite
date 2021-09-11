@@ -231,7 +231,6 @@ def dealerships(request):
 # Create a `login_request` view to handle sign in request
 def login_request(request):
     context = {"title":"Log-in"}
-    print("request", request)
     for key in request: 
         print(key)
     if request.method == "POST":
@@ -239,19 +238,16 @@ def login_request(request):
         password = request.POST['Password']
         user = authenticate(username=username, password=password)
         if user is not None:
-            print(111111111)
             login(request, user)
             context["message"] = "Successfully logged in"
             return render(request, 'djangoapp/general.html', context)
             
         else:
-            print(2222222)
             form = AuthenticationForm()
             context['form']=form
             context['message'] = "Invalid username or password."
             return render(request, 'djangoapp/login.html', context)
     else:
-        print(33333333)
         return render(request, 'djangoapp/general.html', context)
 
 
@@ -264,8 +260,6 @@ def logout_request(request):
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
-    for key in request:
-        print("key", key)
     context = {"title":"SignUp"}
     if request.method == 'GET':
         form = UserCreationForm()
@@ -273,12 +267,10 @@ def registration_request(request):
         return render(request, 'djangoapp/signup.html', context)
     elif request.method == 'POST':
         # Check if user exists
-        print("request", request)
         username = request.POST['Username']
         password = request.POST['Password']
         
-        for field in request.POST:
-            print("FIELD", field)
+
         password2 = request.POST['Password confirmation']
         user_exist = False
         try:
