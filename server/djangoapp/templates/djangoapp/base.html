@@ -61,7 +61,7 @@
             <button style="margin-left: 5px" class="btn btn-outline-success my-2 my-sm-0" type="submit">Signup</button>
             </form>
             {% else %}
-            <ul class="navbar-nav " style="padding-right:1em">
+            <ul class="navbar-nav " style="padding-right:1em; color:white">
                 <li class="nav-item"> {{user.username}}</li>
             </ul>
             <form action="logout" class="form-inline my-2 my-lg-0"> {% csrf_token %}

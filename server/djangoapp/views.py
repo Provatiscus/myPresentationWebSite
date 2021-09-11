@@ -82,9 +82,6 @@ def comments(request):
         comment = Comment(author=author, text=posted_comment_text)
         comment.save()
 
-
-
-
          # Retrieve Previous Comments
     comments = Comment.objects.all()
     for i, comment in enumerate(comments):
@@ -239,8 +236,24 @@ def login_request(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            context["message"] = "Successfully logged in"
-            return render(request, 'djangoapp/general.html', context)
+            context['title'] = 'Comments'
+            context['image'] = "chat.png"
+            context['comments'] = []
+
+            comments = Comment.objects.all()
+            for i, comment in enumerate(comments):
+                comment_json = {
+                    "author": comment.author,
+                    "text": comment.text,
+                    "date": comment.date,
+                    "author_is_user": comment.author == request.user.username,
+                    "id": comment.id,
+                    # "img": comment.author.image,
+                }
+                context['comments'].append(comment_json)
+            # print(context)
+
+            return render(request, 'djangoapp/comments.html', context)
             
         else:
             form = AuthenticationForm()
@@ -282,8 +295,24 @@ def registration_request(request):
             user = User.objects.create_user(username=username,
                                             password=password)
             login(request, user)
-            context['message']="User created successfully"
-            return render(request, 'djangoapp/general.html', context)
+            context['title'] = 'Comments'
+            context['image'] = "chat.png"
+            context['comments'] = []
+
+            comments = Comment.objects.all()
+            for i, comment in enumerate(comments):
+                comment_json = {
+                    "author": comment.author,
+                    "text": comment.text,
+                    "date": comment.date,
+                    "author_is_user": comment.author == request.user.username,
+                    "id": comment.id,
+                    # "img": comment.author.image,
+                }
+                context['comments'].append(comment_json)
+            # print(context)
+
+            return render(request, 'djangoapp/comments.html', context)
         elif not user_exist:
             context['message'] = "Passwords didn't match."
             form = UserCreationForm()
