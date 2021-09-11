@@ -36,6 +36,8 @@ urlpatterns = [
     path(route='gallery', view=views.gallery, name='resumee'),
     path(route='certificates', view=views.certificates, name='resumee'),
     path(route='comments', view=views.comments, name='comments'),
+    path(route='delete_comment', view=views.delete_comment, name='delete_comment'),
+    path(route='fibromyalgia', view=views.fibromyalgia, name='delete_comment'),
 
     # path for dealer reviews view
 

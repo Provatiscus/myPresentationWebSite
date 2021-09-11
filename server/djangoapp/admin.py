@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Certificate, User, Comment
+from .models import Certificate,  Comment
 # from .models import related models
 
 
@@ -17,15 +17,15 @@ class CommentAdmin(admin.ModelAdmin):
     #
 
 # CarMakeAdmin class with CarModelInline
-class UserAdmin(admin.ModelAdmin):
-    model = User
-    inlines = [CommentInline]
+# class UserAdmin(admin.ModelAdmin):
+#     model = User
+#     inlines = [CommentInline]
 
 class CertificateAdmin(admin.ModelAdmin):
     model = Certificate
 
 
 # Register models here
-admin.site.register(User, UserAdmin)
+# admin.site.register(User, UserAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Certificate, CertificateAdmin)

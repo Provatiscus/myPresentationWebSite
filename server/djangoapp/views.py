@@ -13,8 +13,8 @@ import logging
 import json
 import copy
 import random
-from .models import Certificate
-
+from .models import Certificate, Comment
+from datetime import date
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -42,7 +42,87 @@ def resumee(request):
 
 def comments(request):
     context = {"title": "Comments",
-               'image': 'chat.png'}
+               'image': 'chat.png',
+               'comments': []}
+
+    if request.user.is_authenticated:
+        author = request.user.username
+    else:
+        author = "Anonymous"
+
+    context["author"] = author
+    # if request.method == "GET":
+    #     comments = Comment.objects.all()
+    #     for i, comment in enumerate(comments):
+    #         comment_json = {
+    #             "id": comment.id,
+    #             "author": comment.author,
+    #             "text": comment.text,
+    #             "date": comment.date,
+    #             "author_is_user": comment.author == request.user.username,
+    #             # "img": comment.author.image,
+    #         }
+    #         context['comments'].append(comment_json)
+    #     print(context)
+    #
+    #     return render(request, 'djangoapp/comments.html', context)
+
+    if request.method == "POST":
+        posted_comment_text = request.POST["text"]
+        print(posted_comment_text)
+
+
+
+        date_today = date.today()
+        comment = {
+            "text": posted_comment_text,
+            "author": author,
+            "date": date,
+        }
+        comment = Comment(author=author, text=posted_comment_text)
+        comment.save()
+
+
+
+
+         # Retrieve Previous Comments
+    comments = Comment.objects.all()
+    for i, comment in enumerate(comments):
+        comment_json = {
+            "author": comment.author,
+            "text": comment.text,
+            "date": comment.date,
+            "author_is_user": comment.author == request.user.username,
+            "id": comment.id,
+            # "img": comment.author.image,
+        }
+        context['comments'].append(comment_json)
+    # print(context)
+
+    return render(request, 'djangoapp/comments.html', context)
+
+def delete_comment(request):
+    if request.method == "POST":
+        comment_id = request.POST['id']
+        comment = Comment.objects.filter(id=comment_id)
+        comment.delete()
+
+    context = {"title": "Comments",
+               'image': 'chat.png',
+               'comments': []}
+    comments = Comment.objects.all()
+    for i, comment in enumerate(comments):
+        comment_json = {
+            "author": comment.author,
+            "text": comment.text,
+            "date": comment.date,
+            "author_is_user": comment.author == request.user.username,
+            "id": comment.id,
+            # "img": comment.author.image,
+        }
+        context['comments'].append(comment_json)
+    # print(context)
+
     return render(request, 'djangoapp/comments.html', context)
 
 def certificates(request):
@@ -51,7 +131,6 @@ def certificates(request):
                'image': 'diplomas-hat.jpg',
                'certifs':[]}
     if request.method == "GET":
-
         certifs = Certificate.objects.all()
         for i, certif in enumerate(certifs):
             certificate_json = {
@@ -114,6 +193,11 @@ def gallery(request):
                "image": "Art.jpg"}
     return render(request, 'djangoapp/gallery.html', context)
 
+def fibromyalgia(request):
+    context = {"title": "My Story",
+               }
+    return render(request, 'djangoapp/fibromyalgia.html', context)
+
 def minigame(request):
     context = {"title": "Mini Game"}
     return render(request, 'djangoapp/minigame.html', context)
@@ -146,7 +230,7 @@ def dealerships(request):
 
 # Create a `login_request` view to handle sign in request
 def login_request(request):
-    context = {}
+    context = {"title":"Log-in"}
     print("request", request)
     for key in request: 
         print(key)
@@ -183,15 +267,13 @@ def registration_request(request):
     print("request", request)
     for key in request:
         print("key", key)
-    context = {}
+    context = {"title":"SignUp"}
     if request.method == 'GET':
-        print("BBBBBBBB")
         form = UserCreationForm()
         context['form']=form
         return render(request, 'djangoapp/signup.html', context)
     elif request.method == 'POST':
         # Check if user exists
-        print("AAAAAAAAA")
         print("request", request)
         username = request.POST['Username']
         password = request.POST['Password']
@@ -199,7 +281,6 @@ def registration_request(request):
         for field in request.POST:
             print("FIELD", field)
         password2 = request.POST['Password confirmation']
-        print("password2", password2)
         user_exist = False
         try:
             User.objects.get(username=username)
@@ -207,7 +288,6 @@ def registration_request(request):
         except:
             logger.error("New user")
         if not user_exist and password2 == password:
-            print(44444444)
             user = User.objects.create_user(username=username,
                                             password=password)
             login(request, user)
@@ -220,7 +300,6 @@ def registration_request(request):
             return render(request, 'djangoapp/signup.html', context)
 
         else:
-            print(555555555)
             context['message'] = "User already exists."
             form = UserCreationForm()
             context['form']=form

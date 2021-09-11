@@ -1,6 +1,6 @@
 import requests
 import json
-from .models import User, Comment
+from .models import  Comment
 from requests.auth import HTTPBasicAuth
 import random
 
