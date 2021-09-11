@@ -264,7 +264,6 @@ def logout_request(request):
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
-    print("request", request)
     for key in request:
         print("key", key)
     context = {"title":"SignUp"}
