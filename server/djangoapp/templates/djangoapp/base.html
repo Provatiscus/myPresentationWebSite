@@ -42,12 +42,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="gallery">Gallery</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="minigame">Mini-Game</a>
-            </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="Comments">Comments</a>
+                <a class="nav-link" href="comments">Comments</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="contact">Contact <span class="sr-only">(current)</span></a>
@@ -90,15 +87,24 @@
                     {% ifequal image 'diplomas-hat.jpg' %}
                     <br>
                     <img src="{%  static  'diplomas-hat.png'  %}" width="150"   alt="" class = "center rounded-circle" >
-
                     {% endifequal %}
+
 
                     {% ifequal image 'photoCV haute resolution_cropped.png' %}
                     <br>
                     <img src="{%  static  'photoCV haute resolution_cropped.png'  %}" width="150"   alt="" class = "center rounded-circle" >
-
-
                     {% endifequal %}
+
+                    {% ifequal image 'chat.png' %}
+                    <br>
+                    <img src="{%  static  'chat.png'  %}" width="150"   alt="" class = "center rounded-circle" >
+                    {% endifequal %}
+
+                    {% ifequal image 'Art.jpg' %}
+                    <br>
+                    <img src="{%  static  'Art.jpg'  %}" width="150"   alt="" class = "center rounded-circle" >
+                    {% endifequal %}
+
                 </div>
 
                 <div class="col-3">

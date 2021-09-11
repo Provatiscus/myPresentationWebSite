@@ -35,7 +35,7 @@ urlpatterns = [
     path(route='resumee', view=views.resumee, name='resumee'),
     path(route='gallery', view=views.gallery, name='resumee'),
     path(route='certificates', view=views.certificates, name='resumee'),
-    path(route='minigame', view=views.minigame, name='minigame'),
+    path(route='comments', view=views.comments, name='comments'),
 
     # path for dealer reviews view
 

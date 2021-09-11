@@ -1,32 +1,31 @@
 from django.contrib import admin
-from .models import CarMake, CarModel,Certificate
+from .models import Certificate, User, Comment
 # from .models import related models
 
 
 # Register your models here.
 
 # CarModelInline class
-class CarModelInline(admin.StackedInline):
-    model = CarModel
+class CommentInline(admin.StackedInline):
+    model = Comment
     extra = 5
 
 
 # CarModelAdmin class
-class CarModelAdmin(admin.ModelAdmin):
-    model = CarModel
+class CommentAdmin(admin.ModelAdmin):
+    model = Comment
     #
 
 # CarMakeAdmin class with CarModelInline
-class CarMakeAdmin(admin.ModelAdmin):
-    model = CarMake
-    inlines = [CarModelInline]
+class UserAdmin(admin.ModelAdmin):
+    model = User
+    inlines = [CommentInline]
 
 class CertificateAdmin(admin.ModelAdmin):
     model = Certificate
 
 
-
 # Register models here
-admin.site.register(CarModel, CarModelAdmin)
-admin.site.register(CarMake, CarMakeAdmin)
+admin.site.register(User, UserAdmin)
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Certificate, CertificateAdmin)

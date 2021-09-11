@@ -40,6 +40,11 @@ def resumee(request):
                'image': 'photoCV haute resolution_cropped.png'}
     return render(request, 'djangoapp/resumee.html', context)
 
+def comments(request):
+    context = {"title": "Comments",
+               'image': 'chat.png'}
+    return render(request, 'djangoapp/comments.html', context)
+
 def certificates(request):
 
     context = {"title": "My Certificates and Diplomas",
@@ -52,8 +57,8 @@ def certificates(request):
             certificate_json = {
                 "title": certif.title,
                 "school": certif.school,
-                "topics": certif.topics,
-                "skills": certif.skills,
+                "topics": certif.get_topics(),
+                "skills": certif.get_skills(),
                 "link1": certif.link,
                 "link2": certif.link2,
             }
@@ -66,8 +71,8 @@ def certificates(request):
                 certificate_json = {
                     "title": certif.title,
                     "school": certif.school,
-                    "topics": certif.topics,
-                    "skills": certif.skills,
+                    "topics": certif.get_topics(),
+                    "skills": certif.get_skills(),
                     "link1": certif.link,
                     "link2": certif.link2,
                 }
@@ -75,29 +80,28 @@ def certificates(request):
                 context["skills"] = 1 # To have context["skills"] evaluated to True in order to have  an automatic scroll
         else:
             print("POST_REQUEST_TEST", request.POST)
-            skills = []
-            for skill in request.POST:
-                skills.append(skill)
-            print("skills",skills)
+            flags = []
+            for flag in request.POST:
+                flags.append(flag)
+            print("flags",flags)
 
-            flags = {}
-            context["skills"]=skills[1:]
+            context["flags"]=flags[1:]
             # print(context)
 
             certifs = 0
 
-            for skill in skills[1:]:
+            for flag in flags[1:]:
                 print("certifs", certifs)
                 if certifs == 0:
-                    certifs = Certificate.objects.filter(flags__contains = skill)
+                    certifs = Certificate.objects.filter(flags__contains = flag)
                 else:
-                    certifs= certifs | (Certificate.objects.filter(flags__contains = skill))
+                    certifs= certifs | (Certificate.objects.filter(flags__contains = flag))
             for i, certif in enumerate(certifs):
                 certificate_json = {
                     "title": certif.title,
                     "school": certif.school,
-                    "topics": certif.topics,
-                    "skills": certif.skills,
+                    "topics": certif.get_topics(),
+                    "skills": certif.get_skills(),
                     "link1": certif.link,
                     "link2": certif.link2,
                 }
@@ -106,7 +110,8 @@ def certificates(request):
     return render(request, 'djangoapp/certificates.html', context)
 
 def gallery(request):
-    context = {"title": "Gallery"}
+    context = {"title": "Gallery",
+               "image": "Art.jpg"}
     return render(request, 'djangoapp/gallery.html', context)
 
 def minigame(request):
@@ -291,7 +296,6 @@ def get_dealer_details(request, **kwargs):
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...
-
 
 
 def add_review(request):
