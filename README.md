@@ -16,9 +16,9 @@ This website is aiming to show the studies I followed as well as the skills I ga
 
 ## 4th Page
 
-**Deep Learning Art Gallery
+**Deep Learning Art Gallery**
 
 ## 5th Page
 
-**Comment Section
+**Comment Section**
 
