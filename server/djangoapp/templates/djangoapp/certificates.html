@@ -65,6 +65,8 @@
                       <div class="card-body" style="margin:1em;">
                         <h4 class="card-title">{{certif.title}} </h4>
                           <br>
+
+
                           <h5>Skills:</h5>
                           <ul>
                               {% for skill in certif.skills%}
@@ -74,13 +76,20 @@
                           <h5>Link:</h5>
                           <a href="{{certif.link1}}" target="_blank"> {{certif.link1}} </a>
                           {% if 'Tableau' in certif.skills %}
+                          <a href="https://www.coursera.org/account/accomplishments/verify/E73HWZLWNCYC">Course1</a>
+                          <a href="https://www.coursera.org/account/accomplishments/verify/6QUC4XZT22WW">Course2</a>
+                          <a href="https://www.coursera.org/account/accomplishments/verify/YM7WFK5EEZ4J">Course3</a>
+                          <a href="https://www.coursera.org/account/accomplishments/verify/B3ML3BWS5UBN">Course4</a>
                           <br>
                           <br>
                           <h5>Tableau-Public:</h5>
                           <a href="https://public.tableau.com/app/profile/yannick.pezeu" target="_blank"> Link to my Tableau Public Profile </a>
                           {% endif %}
+                          <br><br>
+                          <h5>Duration: <small>~{{certif.duration}} hours</small></h5>
 
-                          <br>
+
+
                       </div>
                     <div class="card-footer" style="text-align:right">By {{certif.school}}</div>
                 </div>
@@ -493,8 +502,11 @@
              </form>
                 </div>
         </div>
-            </div>
         </div>
+        </div>
+<div class="row"><div class="col"> <p>*The durations are copied from the courses presentations</p>
+    <p>**These Durations do not account for all the study I undertook outside those courses.
+    <a href=""></a></p></div></div>
         </div>
         </div>
 

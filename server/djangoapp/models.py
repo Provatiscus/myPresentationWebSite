@@ -109,6 +109,7 @@ class Certificate(models.Model):
     title = models.CharField(max_length=250)
     school = models.CharField(max_length=250)
     topics = models.CharField(max_length=2000)
+    duration = models.IntegerField()
     skills = models.CharField(max_length=2000)
     flags = models.CharField(max_length=2000, null=True)
     link = models.CharField(max_length=500)

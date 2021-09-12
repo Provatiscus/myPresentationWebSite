@@ -151,6 +151,7 @@ def certificates(request):
                     "skills": certif.get_skills(),
                     "link1": certif.link,
                     "link2": certif.link2,
+                    "duration": certif.duration
                 }
                 context["certifs"].append(certificate_json)
                 context["skills"] = 1 # To have context["skills"] evaluated to True in order to have  an automatic scroll
@@ -180,6 +181,7 @@ def certificates(request):
                     "skills": certif.get_skills(),
                     "link1": certif.link,
                     "link2": certif.link2,
+                    "duration": certif.duration
                 }
                 context["certifs"].append(certificate_json)
 
