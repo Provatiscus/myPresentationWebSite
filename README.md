@@ -1,6 +1,6 @@
 # A Django Website to present myself for job interviews
 
-This website is aiming to show the studies I followed as well as the skills I gained along the road
+This website presents my resumee as well as the skills I gained along the road
 
 ## 1st Page
 
