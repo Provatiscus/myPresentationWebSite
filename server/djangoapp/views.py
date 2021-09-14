@@ -69,10 +69,6 @@ def comments(request):
 
     if request.method == "POST":
         posted_comment_text = request.POST["text"]
-        print(posted_comment_text)
-
-
-
         date_today = date.today()
         comment = {
             "text": posted_comment_text,
@@ -137,6 +133,7 @@ def certificates(request):
                 "skills": certif.get_skills(),
                 "link1": certif.link,
                 "link2": certif.link2,
+                "duration": certif.duration,
             }
             context["certifs"].append(certificate_json)
         # print(context)
@@ -156,19 +153,15 @@ def certificates(request):
                 context["certifs"].append(certificate_json)
                 context["skills"] = 1 # To have context["skills"] evaluated to True in order to have  an automatic scroll
         else:
-            print("POST_REQUEST_TEST", request.POST)
             flags = []
             for flag in request.POST:
                 flags.append(flag)
-            print("flags",flags)
 
             context["flags"]=flags[1:]
-            # print(context)
 
             certifs = 0
 
             for flag in flags[1:]:
-                print("certifs", certifs)
                 if certifs == 0:
                     certifs = Certificate.objects.filter(flags__contains = flag)
                 else:
@@ -230,8 +223,6 @@ def dealerships(request):
 # Create a `login_request` view to handle sign in request
 def login_request(request):
     context = {"title":"Log-in"}
-    for key in request: 
-        print(key)
     if request.method == "POST":
         username = request.POST['Username']
         password = request.POST['Password']
@@ -253,7 +244,6 @@ def login_request(request):
                     # "img": comment.author.image,
                 }
                 context['comments'].append(comment_json)
-            # print(context)
 
             return render(request, 'djangoapp/comments.html', context)
             
@@ -312,7 +302,6 @@ def registration_request(request):
                     # "img": comment.author.image,
                 }
                 context['comments'].append(comment_json)
-            # print(context)
 
             return render(request, 'djangoapp/comments.html', context)
         elif not user_exist:
@@ -368,16 +357,13 @@ def get_dealerships_by_state(request):
 def get_dealer_details(request, **kwargs):
     context = {}
     if request.method == "POST":
-        print(request)
-        for key in request:
-            print(key)
+
         if request.POST["dealerId"]:
             dealerId = request.POST["dealerId"]
             url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/review/"
             # Get dealers from the URL
             reviews = get_reviews_from_cf(url, dealerId=dealerId, **kwargs)
-            for review in reviews:
-                print(review)
+
             context["reviews"] = reviews
             context["dealerId"] = dealerId
 
@@ -387,8 +373,7 @@ def get_dealer_details(request, **kwargs):
             url = "https://2123c0db.eu-gb.apigw.appdomain.cloud/api/review/"
             # Get dealers from the URL
             reviews = get_reviews_from_cf(url, dealerId=dealerId, **kwargs)
-            for review in reviews:
-                print(review)
+
             context["reviews"] = reviews
             context["dealerId"] = dealerId
 
@@ -408,7 +393,7 @@ def add_review(request):
         doc["dealership"] = dealerId
         doc["id"]=int(random.random()*10000000)
         # doc["purchase_date"]=doc["date"]
-        print(doc)
+
         post_review(doc)
         context["dealerId"] = dealerId
     return render(request, 'djangoapp/dealer_details.html', context)
