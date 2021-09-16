@@ -274,8 +274,6 @@ def registration_request(request):
         # Check if user exists
         username = request.POST['Username']
         password = request.POST['Password']
-        
-
         password2 = request.POST['Password confirmation']
         user_exist = False
         try:
@@ -284,6 +282,34 @@ def registration_request(request):
         except:
             logger.error("New user")
         if not user_exist and password2 == password:
+            if len(password) < 8:
+                context['message'] = "Your password must contain at least 8 characters."
+                form = UserCreationForm()
+                context['form']=form
+                return render(request, 'djangoapp/signup.html', context)
+
+            elif password == username:
+                context['message'] = "Your password can’t be too similar to your other personal information."
+                form = UserCreationForm()
+                context['form']=form
+                return render(request, 'djangoapp/signup.html', context)
+
+            elif password in ['00000000', '12345678']:
+                context['message'] = "Your password can’t be a commonly used password."
+                form = UserCreationForm()
+                context['form']=form
+                return render(request, 'djangoapp/signup.html', context)
+
+            try:
+                int(password)
+                context['message'] = "Your password can’t be entirely numeric."
+                form = UserCreationForm()
+                context['form']=form
+                return render(request, 'djangoapp/signup.html', context)
+            except:
+                pass
+
+
             user = User.objects.create_user(username=username,
                                             password=password)
             login(request, user)
