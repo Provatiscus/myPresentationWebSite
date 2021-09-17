@@ -20,7 +20,6 @@ urlpatterns = [
     # path for logout
 
     path(route='general', view=views.general, name='general'),
-    path(route='contact', view=views.contact, name='contact'),
     path(route='login', view=views.login_request, name='login_request'),
     path(route='logout', view=views.logout_request, name='login_request'),
     path(route='signup', view=views.registration_request, name='registration_request'),
@@ -31,6 +30,18 @@ urlpatterns = [
     path(route='comments', view=views.comments, name='comments'),
     path(route='delete_comment', view=views.delete_comment, name='delete_comment'),
     path(route='fibromyalgia', view=views.fibromyalgia, name='delete_comment'),
+
+    path(route='fr/general', view=views.generalFR, name='generalFR'),
+    path(route='fr/login', view=views.login_requestFR, name='login_requestFR'),
+    path(route='fr/logout', view=views.logout_requestFR, name='logout_requestFR'),
+    path(route='fr/signup', view=views.registration_requestFR, name='registration_requestFR'),
+    path(route='fr', view=views.generalFR, name='indexFR'),
+    path(route='fr/resumee', view=views.resumeeFR, name='resumeeFR'),
+    path(route='fr/gallery', view=views.galleryFR, name='galleryFR'),
+    path(route='fr/certificates', view=views.certificatesFR, name='certificatesFR'),
+    path(route='fr/comments', view=views.commentsFR, name='commentsFR'),
+    path(route='fr/delete_comment', view=views.delete_commentFR, name='delete_commentFR'),
+    path(route='fr/fibromyalgia', view=views.fibromyalgiaFR, name='fibromyalgiaFR'),
 
     # path for dealer reviews view
 

@@ -1,0 +1,549 @@
+{% extends "djangoapp/FR/base.html" %}}
+{% load static %}
+{% block content %}
+
+
+<!-- DIPLOMAS-->
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+            <div class="container">
+                <h2 style="text-align:center">Diplômes</h2>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-6" style="margin-bottom:2em">
+                            <div class="card h-100" style="  background:#f0f2f4; " >
+                                  <img class="card-img-top" src="{%  static  'EPFL_Logo.png'  %}"  alt="Car" style="padding:1em; height:100%; width:30%">
+                                  <div class="card-body" style="margin:1em;">
+                                    <h4 class="card-title" style="text-align:center">BioEngineering Engineer </h4>
+                                      <br>
+                                        <p style="text-align:right"><a href="https://www.epfl.ch/research/domains/bioengineering/" target="_blank" >EPFL Website</a></p>
+                                  </div>
+                                <div class="card-footer" style="text-align:right">Veuillez me contacter pour voir le diplôme</div>
+                            </div>
+                        </div>
+                <!--        DIPLOMA 2-->
+                        <div class="col-lg-6" style="margin-bottom:2em">
+                            <div class="card h-100" style="  background:#f0f2f4; " >
+                                  <img class="card-img-top" src="{%  static  'centrale_paris_logo2.png'  %}"  alt="logo" style="padding:1em; width:30%">
+                                  <div class="card-body" style="margin:1em;">
+                                    <h4 class="card-title" style="text-align:center">Ingénieur diplomé de l'Ecole Centrale des Arts et Manufactures </h4>
+                                      <br>
+                                        <p style="text-align:right"><a href="https://www.centralesupelec.fr/" target="_blank" >ECP Website</a></p>
+                                  </div>
+                                <div class="card-footer" style="text-align:right">Veuillez me contacter pour voir le diplôme</div>
+                            </div>
+                         </div>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<hr>
+<br>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+            <div class="container">
+                <h2 style="text-align:center">Evaluation</h2>
+                    <br>
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="{% static 'Workera.jpg' %}" alt="" class="center" style="padding:2em; border:1px solid"><br>
+                            <p style="text-align:center"><a href="https://workera.ai/resources/guide-to-the-workera-test/?utm_source=test_homepage&utm_medium=test_guide_button&utm_campaign=test_guide_button#I">Workera
+                                </a> est une compagnie spécialisée dans l'évaluation des data scientists.</p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<hr>
+<br>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+
+            <div class = "container">
+            <h2 style="text-align:center" id="certificates">Certificats</h2>
+                <br>
+
+            <!--     CERTIFICATES-->
+            <div class="row">
+                {% for certif in certifs %}
+                <div class="col-lg-6 col-xl-4" style="margin-bottom:2em">
+                <div class="card h-100" style="  background:#f0f2f4; " >
+                      <div class="card-body" style="margin:1em;">
+                        <h4 class="card-title">{{certif.title}} </h4>
+                          <br>
+
+
+                          <h5>Compétences:</h5>
+                          <ul>
+                              {% for skill in certif.skills%}
+                              <li> {{skill}} </li>
+                              {% endfor %}
+                          </ul>
+                          <h5>Lien:</h5>
+                          <a href="{{certif.link1}}" target="_blank"> {{certif.link1}} </a>
+                          {% if 'Tableau' in certif.skills %}
+                          <a href="https://www.coursera.org/account/accomplishments/verify/E73HWZLWNCYC">Course1</a>
+                          <a href="https://www.coursera.org/account/accomplishments/verify/6QUC4XZT22WW">Course2</a>
+                          <a href="https://www.coursera.org/account/accomplishments/verify/YM7WFK5EEZ4J">Course3</a>
+                          <a href="https://www.coursera.org/account/accomplishments/verify/B3ML3BWS5UBN">Course4</a>
+                          <br>
+                          <br>
+                          <h5>Tableau-Public:</h5>
+                          <a href="https://public.tableau.com/app/profile/yannick.pezeu" target="_blank"> Link to my Tableau Public Profile </a>
+                          {% endif %}
+                          <br><br>
+                          <h5>Durée: <small>~{{certif.duration}} heures</small></h5>
+
+
+
+                      </div>
+                    <div class="card-footer" style="text-align:right">Par {{certif.school}}</div>
+                </div>
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+
+            </div>
+            </div>
+        <!--        FILTER-->
+        <!--        FILTER LARGE SCREEN -->
+
+        <div class="col-xl-2 filter-large-screen">
+            <div class="card " style="  background:#fbfbfc; margin:1em"; " >
+            <div class="card-body" style="margin-left:1em">
+            <h5 style="text-align:center">Filtrer par compétences</h5>
+            <form method="post" action="certificates">
+                {% csrf_token %}
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="all" name="all"
+                         {% if flags == 1 %} Checked {% endif %}>
+                  <label class="form-check-label" for="tensorflow">
+                    All
+                  </label>
+                </div>
+                <hr>
+
+                <h6>Language</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="python" name="python"
+                  {% if 'python' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="python">
+                    Python
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="R" name="R"
+                  {% if 'R' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="R">
+                    R
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="javascript" name="javascript"
+                  {% if 'javascript' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="javascript">
+                    Javascript
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="sql" name="sql"
+                  {% if 'sql' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="sql">
+                    SQL
+                  </label>
+                </div>
+                <br>
+
+                <h6>Machine Learning</h6>
+                 <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="numpy" name="numpy"
+                  {% if 'numpy' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="numpy">
+                    Numpy
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="pandas" name="pandas"
+                  {% if 'pandas' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="pandas">
+                    Pandas
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="scikitlearn" name="scikitlearn"
+                  {% if 'scikitlearn' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="scikitlearn">
+                    Scikit-Learn
+                  </label>
+                </div>
+                <br>
+
+                <h6>Deep Learning</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="tensorflow" name="tensorflow"
+                  {% if 'tensorflow' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="tensorflow">
+                    Tensorflow
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="pytorch" name="pytorch"
+                  {% if 'pytorch' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="pytorch">
+                    Pytorch
+                  </label>
+                </div>
+                <br>
+
+                <h6>Cloud Computing</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="hadoop" name="hadoop"
+                  {% if 'hadoop' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="hadoop">
+                    Hadoop
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="GCP" name="GCP"
+                  {% if 'GCP' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="GCP">
+                    GCP
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="ibmcloud" name="ibmcloud"
+                  {% if 'ibmcloud' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="ibmcloud">
+                    IBM Cloud
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="bigquery" name="bigquery"
+                  {% if 'bigquery' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="bigquery">
+                    BigQuery
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="kubernetes" name="kubernetes"
+                  {% if 'kubernetes' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="kubernetes">
+                    Kubernetes
+                  </label>
+                </div>
+                <br>
+
+                <h6>Data Visualisation</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="tableau" name="tableau"
+                  {% if 'tableau' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="tableau">
+                    Tableau
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="matplotlib" name="matplotlib"
+                  {% if 'matplotlib' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="matplotlib">
+                    Matplotlib
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="seaborn" name="seaborn"
+                  {% if 'seaborn' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="seaborn">
+                    Seaborn
+                  </label>
+                </div>
+                <br>
+
+                <h6>Algorithmic</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="Galgorithms" name="Galgorithms"
+                  {% if 'Galgorithms' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="Galgorithms">
+                    General Algorithms
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="MLalgorithms" name="MLalgorithms"
+                  {% if 'MLalgorithms' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="MLalgorithms">
+                    ML Algorithms
+                  </label>
+                </div>
+                <br>
+
+                <h6>Autre</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="webdevelopment" name="webdevelopment"
+                  {% if 'webdevelopment' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="webdevelopment">
+                    Web Development
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="statistics" name="statistics"
+                  {% if 'statistics' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="statistics">
+                    Statistics
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="signalprocessing" name="signalprocessing"
+                  {% if 'signalprocessing' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="signalprocessing">
+                    Signal Processing
+                  </label>
+                </div>
+                <br>
+                <button type="submit" style="float:right" class="btn btn-primary text-right">Filter</button>
+                <br>
+
+             </form>
+                </div>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+
+
+        <div class="col-12 filter-small-screen">
+            <div class="card " style="  background:#fbfbfc; margin:1em"; " >
+            <div class="card-body" style="margin-left:1em">
+            <h5 style="text-align:center">Filter by Skill</h5>
+            <form method="post" action="certificates">
+                {% csrf_token %}
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="all2" name="all"
+                         {% if skills == 1 %} Checked {% endif %}>
+                  <label class="form-check-label" for="tensorflow">
+                    All
+                  </label>
+                </div>
+                <hr>
+
+                <h6>Language</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="python2" name="python"
+                  {% if 'python' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="python">
+                    Python
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="R2" name="R"
+                  {% if 'R' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="R">
+                    R
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="javascript2" name="javascript"
+                  {% if 'javascript' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="javascript">
+                    Javascript
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="sql2" name="sql"
+                  {% if 'sql' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="sql">
+                    SQL
+                  </label>
+                </div>
+                <br>
+
+                <h6>Machine Learning</h6>
+                 <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="numpy2" name="numpy"
+                  {% if 'numpy' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="numpy">
+                    Numpy
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="pandas2" name="pandas"
+                  {% if 'pandas' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="pandas">
+                    Pandas
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="scikitlearn2" name="scikitlearn"
+                  {% if 'scikitlearn' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="scikitlearn">
+                    Scikit-Learn
+                  </label>
+                </div>
+                <br>
+
+                <h6>Deep Learning</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="tensorflow2" name="tensorflow"
+                  {% if 'tensorflow' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="tensorflow">
+                    Tensorflow
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="pytorch2" name="pytorch"
+                  {% if 'pytorch' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="pytorch">
+                    Pytorch
+                  </label>
+                </div>
+                <br>
+
+                <h6>Cloud Computing</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="hadoop2" name="hadoop"
+                  {% if 'hadoop' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="hadoop">
+                    Hadoop
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="GCP2" name="GCP"
+                  {% if 'GCP' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="GCP">
+                    GCP
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="ibmcloud2" name="ibmcloud"
+                  {% if 'ibmcloud' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="ibmcloud">
+                    IBM Cloud
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="bigquery2" name="bigquery"
+                  {% if 'bigquery' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="bigquery">
+                    BigQuery
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="kubernetes2" name="kubernetes"
+                  {% if 'kubernetes' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="kubernetes">
+                    Kubernetes
+                  </label>
+                </div>
+                <br>
+
+                <h6>Data Visualisation</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="tableau2" name="tableau"
+                  {% if 'tableau' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="tableau">
+                    Tableau
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="matplotlib2" name="matplotlib"
+                  {% if 'matplotlib' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="matplotlib">
+                    Matplotlib
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="seaborn2" name="seaborn"
+                  {% if 'seaborn' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="seaborn">
+                    Seaborn
+                  </label>
+                </div>
+                <br>
+
+                <h6>Algorithmique</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="Galgorithms2" name="Galgorithms"
+                  {% if 'Galgorithms' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="Galgorithms">
+                    General Algorithms
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="MLalgorithms2" name="MLalgorithms"
+                  {% if 'MLalgorithms' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="MLalgorithms">
+                    ML Algorithms
+                  </label>
+                </div>
+                <br>
+
+                <h6>Other</h6>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="webdevelopment2" name="webdevelopment"
+                  {% if 'webdevelopment' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="webdevelopment">
+                    Web Development
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="statistics2" name="statistics"
+                  {% if 'statistics' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="statistics">
+                    Statistics
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="signalprocessing2" name="signalprocessing"
+                  {% if 'signalprocessing' in skills %} Checked {% endif %}>
+                  <label class="form-check-label" for="signalprocessing">
+                    Signal Processing
+                  </label>
+                </div>
+                <br>
+                <button type="submit" style="float:right" class="btn btn-primary text-right">Filtrer</button>
+                <br>
+
+             </form>
+                </div>
+        </div>
+        </div>
+        </div>
+<div class="row"><div class="col"> <p>*Les durées indiquées sont copiées depuis la présentation officielle des cours</p>
+    <p>**Ces durées ne tiennent pas compte de toutes les études que j'ai suivies par ailleurs..
+    <a href=""></a></p></div></div>
+        </div>
+        </div>
+
+
+
+
+    {% if flags %}
+    <script>
+        var element = document.getElementById('certificates');
+        element.scrollIntoView(alignToTop=true, scrollIntoViewOptions={behavior: "smooth"});
+    </script>
+    {% endif %}
+
+
+
+{% endblock %}

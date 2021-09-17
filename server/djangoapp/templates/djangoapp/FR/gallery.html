@@ -1,0 +1,178 @@
+{% extends "djangoapp/FR/base.html" %}}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h2 style="text-align:center">Style Transfer</h2>
+            <br>
+            <p style="text-align:justify">Le transfert de style consiste à extraire le style d'une image pour l'appliquer sur une autre image.
+                <br> Pour ce faire, nous utilisons un réseau neuronal profond formé pour la classification d'images.
+                Ce réseau détecte certains shémas dans l'image afin de classer les images.
+                Nous pouvons récupérer ce type de shémas dans les couches profondes du réseau et nous pouvons en faire la moyenne en prenant la matrice de gramm de ces couches.
+                Cela nous donne quelque chose qui représente le "style" de l'image. Une fois que nous avons extrait ces caractéristiques,
+                nous pouvons prendre le même réseau et geler toutes ses couches sauf la première pour appliquer la descente de gradient par retropropagation
+                afin de modifier l'image originale et rendre son style plus proche du style choisi.
+            </p>
+            <br>
+
+            <p>Le code écrit pour le Style Transfer est disponible sur mon <a href="https://github.com/YannickPezeu/StyleTransfer">Github</a></p>
+        </div>
+    </div>
+    <br><br>
+<!--    1-->
+    <div class="row">
+        <div class="col-md-4" style="margin-bottom:1em">
+            <h4 style="text-align:center">Image Source</h4>
+            <br>
+            <img src="{%  static  'gallery/content/paysage_maman2.jpg'  %}" alt="" width = 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <h4 style="text-align:center">Image de Style</h4>
+            <br>
+            <img src="{%  static  'gallery/style/Monet1.jpg'  %}" alt="" width = 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <h4 style="text-align:center">Résultat</h4>
+            <br>
+            <img src="{%  static  'gallery/Monet1_paysage2.jpeg'  %}" alt="" width = 100%>
+        </div>
+    </div>
+    <hr>
+
+<!--    2-->
+      <div class="row d-flex flex-wrap align-items-center">
+
+        <div class="col-md-4" style="margin-bottom:1em;">
+            <br>
+            <img src="{%  static  'gallery/content/bridge.jpg'  %}" alt="" class = center width="100%">
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em;">
+            <br>
+            <img src="{%  static  'gallery/style/scream_resized.jpg'  %}" class = center alt="" width= 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em;">
+            <img src="{%  static  'gallery/screambridge2.gif'  %}" alt="" width = 100%>
+        </div>
+
+    </div>
+    <br>
+    <hr>
+    <br>
+
+<!--    3-->
+      <div class="row d-flex flex-wrap align-items-center">
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/content/orangutan.jpg'  %}" alt="" width = 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/style/Monet1.jpg'  %}" alt="" width= 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/Monet1_orangutan.jpg'  %}" alt="" width = 100%>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+
+    <!--   4-->
+      <div class="row d-flex flex-wrap align-items-center">
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/content/moi.jpg'  %}" alt="" width = 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/style/Van_Gogh2.jpg'  %}" alt="" width= 100%>
+        </div>
+
+        <div class="col-md-4" style="margin-bottom:1em">
+            <img src="{%  static  'gallery/moi_Van_Gogh2.jpeg'  %}" alt="" width = 100%>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <br><br>
+<!--    <div class="flex-container">-->
+<!--        <img src="{%  static  'gallery/content/orangutan.jpg'  %}" class="inner-image portrait" />-->
+<!--        <img src="{%  static  'gallery/style/Monet1.jpg'  %}" class="inner-image portrait" />-->
+<!--        <img src="{%  static  'gallery/Monet1_orangutan.jpg'  %}" class="inner-image portrait" />-->
+
+<!--    </div>-->
+
+    <div class="row">
+        <div class="col">
+            <h2 style="text-align:center">Generative Adversarial Network</h2>
+            <br>
+            <p style="text-align:justify"> Un GAN est un type particulier de réseau composé d'un générateur d'images et d'un discriminateur qui s'entraînent l'un contre l'autre. <br>
+                Le générateur est un réseau produisant des images et le discriminateur est un réseau évaluant dans quelle mesure les images produites par le générateur
+                ressemblent aux images de référence.
+                Lorsque le générateur produit une image, le discriminateur évalue l'image et par rétropropagation informe le générateur sur la façon dont ses
+                poids doivent être transformés afin de produire une meilleure image.
+                Il existe de nombreuses variantes du GANS. Cette explication porte sur la forme la plus simple du GANS.
+
+            </p>
+            <br>
+
+                    <p>Le code écrit pour ces production de GAN est disponible sur mon <a href="https://github.com/YannickPezeu/GANs">Github</a></p>
+
+
+
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 style="text-align:center">GAN Without Convolutional neural network</h3>
+            <br>
+            <img src="{% static 'gallery/Simple_GAN.gif' %}" alt="" width = 100%>
+            <br>
+
+        </div>
+
+        <div class="col-lg-6">
+            <h3 style="text-align:center">GAN With Convolutional neural network</h3>
+            <br>
+            <img src="{% static 'gallery/Conv_GAN.gif' %}" alt="" width = 100%>
+            <br>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+           <h4> Ces images représentent la sortie du GANS à différents moments pour chaque 20 étapes d'entrainement pendant plusieurs milliers d'étapes.</h4>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <p style="text-align:justify">
+                Un fait intéressant que nous pouvons souligner ici est la façon dont le réseau neuronal convolutionnel peut apprendre parfaitement le fond noir en comparé au
+                réseau neuronal dense.
+                En effet, le réseau de convolution peut apprendre des représentations spatiales en isolant certaines parties de l'image. Ainsi, il peut apprendre que certaines parties doivent être sombres.
+                En comparaison, le réseau neuronal dense voit tous ses poids entrelacés et ne peut pas apprendre une partie sombre de l'arrière-plan sans changer la partie claire du premier plan.
+            </p>
+        </div>
+    </div>
+
+
+
+    
+    <br><br>
+
+</div>
+
+{% endblock %}

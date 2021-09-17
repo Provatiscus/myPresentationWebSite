@@ -1,0 +1,45 @@
+{% extends "djangoapp/FR/base.html" %}}
+{% load static %}
+{% block content %}
+
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class="col-12" style="text-align: center;">
+            <h5>Cette vidéo de 180s vous permettra d'évaluer mon adéquation au poste aussi facilement que possible. <br><br> Veuillez choisir la langue. </h5><br><br>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-4">
+            <a href="https://youtu.be/ffa1p3QN9qQ" target="_blank">
+                <img src="{% static 'thumbnails/English.png' %}" alt="" class="thumbnail" width="100%" >
+                <h5 style="text-align: center;">Anglais</h5>
+            </a>
+            <br>
+        </div>
+
+        <div class="col-md-4">
+            <a href="https://youtu.be/WLejOQD44gI" target="_blank">
+                <img src="{% static 'thumbnails/French.png' %}" alt="" class="thumbnail" width="100%" >
+                <h5 style="text-align: center;">Français</h5>
+            </a>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <a href="https://youtu.be/4Yjvg3uHN9E" target="_blank">
+            <img src="{% static 'thumbnails/German.png' %}" alt="" class="thumbnail" width="100%" >
+            <h5 style="text-align: center;">Allemand</h5>
+            </a>
+            <br>
+
+        </div>
+    </div>
+</div>
+<br>
+
+
+{% endblock %}
