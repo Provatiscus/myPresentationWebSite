@@ -137,7 +137,6 @@ def certificates(request):
             flags = []
             for flag in request.POST:
                 flags.append(flag)
-
             context["flags"]=flags[1:]
 
             certifs = 0
@@ -425,7 +424,6 @@ def certificatesFR(request):
             flags = []
             for flag in request.POST:
                 flags.append(flag)
-
             context["flags"]=flags[1:]
 
             certifs = 0

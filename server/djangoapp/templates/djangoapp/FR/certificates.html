@@ -109,6 +109,12 @@
                           <h5>Tableau-Public:</h5>
                           <a href="https://public.tableau.com/app/profile/yannick.pezeu" target="_blank"> Link to my Tableau Public Profile </a>
                           {% endif %}
+                          {% if 'AWS' in certif.skills %}
+                          <br> <br> Ici un
+                          <a href="https://www.youtube.com/watch?v=ulprqHHWlng">Lien </a>vers un très bon cours que j'ai pris sur Youtube.
+
+                          {% endif %}
+
                           <br><br>
                           <h5>Durée: <small>~{{certif.duration}} heures</small></h5>
 
@@ -220,6 +226,13 @@
                   {% if 'hadoop' in flags %} Checked {% endif %}>
                   <label class="form-check-label" for="hadoop">
                     Hadoop
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="AWS" name="AWS"
+                  {% if 'AWS' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="aws">
+                    AWS
                   </label>
                 </div>
                 <div class="form-check" >
@@ -424,6 +437,13 @@
                   {% if 'hadoop' in skills %} Checked {% endif %}>
                   <label class="form-check-label" for="hadoop">
                     Hadoop
+                  </label>
+                </div>
+                <div class="form-check" >
+                  <input class="form-check-input" type="checkbox" value="on" id="AWS2" name="AWS"
+                  {% if 'AWS' in flags %} Checked {% endif %}>
+                  <label class="form-check-label" for="aws">
+                    AWS
                   </label>
                 </div>
                 <div class="form-check" >
