@@ -230,7 +230,7 @@ def registration_request(request):
         context['form']=form
         return render(request, 'djangoapp/signup.html', context)
     elif request.method == 'POST':
-        if "language" in request.POST["language"]:
+        if "language" in request.POST.keys():
             context["language"] = request.POST["language"]
         else:
             context["language"] = "english"
